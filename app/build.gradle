@@ -18,7 +18,6 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'com.codeborne', name: 'selenide', version: '6.19.1'
     implementation group: 'org.testng', name: 'testng', version: '7.8.0'
 }
 
