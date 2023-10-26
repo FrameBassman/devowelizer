@@ -3,6 +3,9 @@
  */
 package tech.romashov;
 
+import com.codeborne.selenide.Selenide;
+import org.testng.annotations.Test;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
@@ -10,5 +13,10 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+    }
+
+    @Test
+    public void itWorks() throws Exception {
+        Selenide.open("http://localhost:8080/input");
     }
 }
