@@ -3,8 +3,10 @@
  */
 package tech.romashov;
 
-import com.codeborne.selenide.Selenide;
 import org.testng.annotations.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class App {
     public String getGreeting() {
@@ -17,6 +19,6 @@ public class App {
 
     @Test
     public void itWorks() throws Exception {
-        Selenide.open("http://localhost:8080/input");
+        assertThat(1, equalTo(2));
     }
 }
