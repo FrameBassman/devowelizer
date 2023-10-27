@@ -16,9 +16,4 @@ public class App {
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
     }
-
-    @Test
-    public void itWorks() throws Exception {
-        assertThat(1, equalTo(2));
-    }
 }
