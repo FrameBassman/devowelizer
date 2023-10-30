@@ -1,6 +1,8 @@
 package tech.romashov.http;
 
 import okhttp3.OkHttpClient;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,6 +13,7 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
@@ -24,14 +27,15 @@ public class HttpClient {
     private RestTemplate template;
     public String lastExecutedRequestDescription;
     public String lastReceivedResponseDescription;
+    private Log logger = LogFactory.getLog(getClass());
 
     public HttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .pingInterval(Duration.ofSeconds(10))
-                .callTimeout(Duration.ofMinutes(3))
-                .connectTimeout(Duration.ofMinutes(3))
-                .readTimeout(Duration.ofMinutes(3))
-                .writeTimeout(Duration.ofMinutes(3));
+                .callTimeout(Duration.ofMinutes(1))
+                .connectTimeout(Duration.ofMinutes(1))
+                .readTimeout(Duration.ofMinutes(1))
+                .writeTimeout(Duration.ofMinutes(1));
         OkHttpClient client = builder.build();
         template = new RestTemplate(new OkHttp3ClientHttpRequestFactory(client));
         DefaultUriBuilderFactory handler = new DefaultUriBuilderFactory();
@@ -63,6 +67,10 @@ public class HttpClient {
             Callable<ResponseEntity> execution) {
         try {
             return execution.call();
+        } catch (RestClientException e) {
+            logger.warn("\nIt was:\n" + lastExecutedRequestDescription + "\n\nAnd answered with:\n"
+                            + lastReceivedResponseDescription);
+            throw e;
         } catch (Exception e) {
             throw new RestClientException(
                     e.getMessage() + "\nIt was " + lastExecutedRequestDescription + "\nanswered with "
@@ -78,5 +86,15 @@ public class HttpClient {
     public <T> ResponseEntity<T> get(String url, HttpEntity<?> requestEntity, Class<T> responseType) {
         return executeRestTemplateExchangeWithConversionErrorsHandling(
                 () -> template.exchange(url, HttpMethod.GET, requestEntity, responseType));
+    }
+
+    public <T> ResponseEntity<T> head(String url, HttpEntity<?> requestEntity, Class<T> responseType) {
+        return executeRestTemplateExchangeWithConversionErrorsHandling(
+                () -> template.exchange(url, HttpMethod.HEAD, requestEntity, responseType));
+    }
+
+    public <T> ResponseEntity<T> delete(String url, HttpEntity<?> requestEntity, Class<T> responseType) {
+        return executeRestTemplateExchangeWithConversionErrorsHandling(
+                () -> template.exchange(url, HttpMethod.DELETE, requestEntity, responseType));
     }
 }

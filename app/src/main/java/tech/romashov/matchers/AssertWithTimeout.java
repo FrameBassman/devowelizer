@@ -18,7 +18,7 @@ public class AssertWithTimeout {
     private static <T> T waitAndGetActualValue(Callable<T> getter, Matcher<? super T> matcher) throws Throwable {
         Instant begin = Instant.now();
         T value = getter.call();
-        while (Duration.between(Instant.now(), begin).toMillis() < timeout.toMillis() && !matcher.matches(value)) {
+        while (Duration.between(begin, Instant.now()).toMillis() < timeout.toMillis() && !matcher.matches(value)) {
             try {
                 Thread.sleep(delay.toMillis());
             } catch (InterruptedException e) {
