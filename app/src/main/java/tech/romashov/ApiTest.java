@@ -12,6 +12,7 @@ public class ApiTest extends BaseTest {
 
     @Test
     public void itWorks() throws Exception {
+        logger.info("Hello World!");
         assertThat(steps.version(), equalTo("2"));
     }
 }

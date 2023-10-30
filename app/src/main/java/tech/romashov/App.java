@@ -3,11 +3,6 @@
  */
 package tech.romashov;
 
-import org.testng.annotations.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
 public class App {
     public String getGreeting() {
         return "Hello World!";
