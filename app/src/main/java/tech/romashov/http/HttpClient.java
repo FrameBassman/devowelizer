@@ -11,13 +11,11 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.io.IOException;
-import java.net.URI;
 import java.time.Duration;
 import java.util.concurrent.Callable;
 
@@ -66,7 +64,6 @@ public class HttpClient {
         try {
             return execution.call();
         } catch (Exception e) {
-            // Wrap any response execution exceptions with data saved by CachingHttpRequestsInterceptor.
             throw new RestClientException(
                     e.getMessage() + "\nIt was " + lastExecutedRequestDescription + "\nanswered with "
                             + lastReceivedResponseDescription, e);
