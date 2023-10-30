@@ -1,4 +1,4 @@
-package tech.romashov;
+package tech.romashov.features;
 
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
