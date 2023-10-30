@@ -14,6 +14,6 @@ public class DevowelizerTests extends BaseTest {
     @Test
     public void itWorks() throws Exception {
         logger.info("Hello World!");
-        assertThat(devowelizerRequests.get("input"), equalTo("nptnpt"));
+        assertThat(devowelizerRequests.get("input"), equalTo("npt"));
     }
 }

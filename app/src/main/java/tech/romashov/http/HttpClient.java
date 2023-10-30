@@ -11,16 +11,15 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.io.IOException;
+import java.net.URI;
 import java.time.Duration;
-import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Component
 public class HttpClient {
@@ -41,6 +40,10 @@ public class HttpClient {
         handler.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
         template.setUriTemplateHandler(handler);
         template.getInterceptors().add(new CachingHttpRequestsInterceptor());
+    }
+
+    public HttpHeaders getHeaders(String uri) {
+        return template.headForHeaders(uri);
     }
 
     class CachingHttpRequestsInterceptor implements ClientHttpRequestInterceptor {
@@ -75,8 +78,8 @@ public class HttpClient {
                 () -> template.exchange(url, HttpMethod.POST, requestEntity, responseType));
     }
 
-    public <T> ResponseEntity<T> get(String url, Class<T> responseType, Object... urlVariables) {
+    public <T> ResponseEntity<T> get(String url, HttpEntity<?> requestEntity, Class<T> responseType) {
         return executeRestTemplateExchangeWithConversionErrorsHandling(
-                () -> template.getForEntity(url, responseType, urlVariables));
+                () -> template.exchange(url, HttpMethod.GET, requestEntity, responseType));
     }
 }
