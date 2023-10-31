@@ -1,0 +1,21 @@
+---
+name: CI/CD
+'on':
+  pull_request:
+  push:
+
+jobs:
+  build:
+    name: Build and test docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v3
+
+      - name: Setup docker compose
+        run: "docker compose version"
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto' # See 'Supported distributions' for available options
+          java-version: '11'
