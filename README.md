@@ -26,4 +26,4 @@ The test report is located in {project-dir}/devowelizer/app/build/reports/tests/
   - Load tests
 - There is a hamcrest library - it is easy to create a custom matcher logic
 - There is an AssertWithTimeout logic to catch async or unstable behavior
-- The solution includes a logger for the better debug process
+- The solution includes a logger for the improve debug process
