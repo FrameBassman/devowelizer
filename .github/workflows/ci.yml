@@ -24,3 +24,6 @@ jobs:
         name: Setup Gradle
         with:
           gradle-version: 7.6.1
+
+      - name: Run application
+        run: "make run-application"
