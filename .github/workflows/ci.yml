@@ -32,9 +32,7 @@ jobs:
         run: "make run-tests"
 
       - name: Test Report
-        uses: dorny/test-reporter@v1
+        uses: mikepenz/action-junit-report@v4
         if: success() || failure()    # run this step even if previous step failed
         with:
-          name: Devowelizer Test Tool # Name of the check run which will be created
-          path: app/build/test-results/runTests/TEST-*.xml    # Path to test results
-          reporter: java-junit        # Format of test results
+          report_paths: app/build/test-results/runTests/TEST-*.xml    # Path to test results
