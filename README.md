@@ -17,13 +17,13 @@ The test report is located in {project-dir}/devowelizer/app/build/reports/tests/
 
 #### Key points
 
-- One-line command is required for project execution
+- A one-line command is required for the project execution
 - It is easy to extend the solution due to dependency injection framework
-- It is easy to wrap the solution in Docker container
-- Solution is divided into the following suites:
+- It is easy to wrap the solution in a Docker container
+- The solution is divided into following suites:
   - Smoke tests
   - Functional tests
   - Load tests
-- There is a hamcrest library - it is easy to create custom matcher logic
+- There is a hamcrest library - it is easy to create a custom matcher logic
 - There is an AssertWithTimeout logic to catch async or unstable behavior
-- Solution includes a logger for a better debug process
+- The solution includes a logger for the better debug process
