@@ -19,3 +19,8 @@ jobs:
         with:
           distribution: 'corretto' # See 'Supported distributions' for available options
           java-version: '11'
+
+      - uses: gradle/gradle-build-action@v2
+        name: Setup Gradle
+        with:
+          gradle-version: 7.6.1
